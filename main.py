@@ -18,7 +18,7 @@ def clear_console():
     if os.name == 'nt':  
         os.system('cls')
     else:
-        print('\n' * 100)
+        os.system("clear")
 
 clear_console()
 
