@@ -6,3 +6,4 @@ pystyle
 pymem
 discord-webhooks
 discord-webhook
+pyinstaller
