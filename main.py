@@ -236,6 +236,11 @@ try:
     elif choice == 9:
       try:
         shutil.rmtree("./build/")
+        shutil.rmtree("./dist/")
+        for filename in os.listdir("./"):
+          if filename.endswith('.spec'):
+              file_path = os.path.join("./", filename)
+              os.remove(file_path)
       except:
         print("First build detected hehe")
       os.mkdir("./build/")

@@ -7,6 +7,7 @@ import subprocess
 import requests
 from urllib.request import urlopen
 # pre-run needed variables
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 config_file = open("./CONFIG.json","r")
 config = json.load(config_file)
 
