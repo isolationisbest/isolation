@@ -1,0 +1,7 @@
+pymem
+termcolor
+colorama
+requests
+pystyle
+pymem
+discord-webhooks
