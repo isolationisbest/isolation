@@ -5,3 +5,4 @@ requests
 pystyle
 pymem
 discord-webhooks
+discord-webhook
