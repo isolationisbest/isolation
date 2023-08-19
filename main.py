@@ -221,8 +221,10 @@ try:
                   print(f"{Fore.RED}Error{Fore.RESET}")
       pass
       if opcion=='3':
-        os.system("cls")
-      
+        if platform.system()== "Windows":
+          os.system("cls")
+        else:
+          os.system("clear")
         print(Fore.LIGHTBLUE_EX+"Closing!")
         print(Fore.BLUE+"Have a good day :D")
         time.sleep(2)
