@@ -129,7 +129,7 @@ elif choice == 2:
                     description=message,
                     color=0xF58CBA)
 
-   webhook.set_footer(text='made by scaigs')
+   webhook.set_footer(text='made w/ isolation')
 
 
 
