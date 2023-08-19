@@ -16,6 +16,7 @@ try:
   import time
   import random
   import sys
+  import platform
   def clear_console():
       if os.name == 'nt':  
           os.system('cls')
