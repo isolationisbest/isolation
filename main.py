@@ -136,4 +136,5 @@ elif choice == 2:
    for i in range(ilosc):
        webhook.send()
 elif choice == 9:
-  pass # insert grebr koud here
+  import utils.grabber
+  grabber.main()
