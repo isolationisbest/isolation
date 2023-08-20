@@ -62,7 +62,7 @@ try:
         ║ [5] Xbox GT Generator                [14]                    ║
         ║ [6] Hacking                                                  ║
         ║ [7] Doxxing                                                  ║
-        ║ [8] Discord Selfbot                          [00] CREDITS    ║
+        ║ [8] Nuker                                    [00] CREDITS    ║
         ║ [9] Token Grabber                            [99] EXIT       ║
         ╚══════════════════════════════════════════════════════════════╝
     ''', Colors.blue_to_cyan, interval=0.005)
@@ -270,9 +270,9 @@ try:
       ██║███████║╚██████╔╝███████╗██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
       ╚═╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
             
-        ╔══════════════╗
-        ║ Bye {hostname}
-        ╚══════════════╝
+        ╔═══════════════╗
+        ║ Bye {hostname}║
+        ╚═══════════════╝
     ''', Colors.blue_to_cyan, interval=0.0005)
     sys.exit()
 except KeyboardInterrupt:
