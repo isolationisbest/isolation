@@ -1,4 +1,4 @@
-import ctypes, sys
+import ctypes, sys, platform
 if platform.system() == "Windows":
     import ctypes
     def is_admin():
