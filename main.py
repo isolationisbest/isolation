@@ -65,7 +65,8 @@ try:
         ║ [8] Nuker                                    [00] CREDITS    ║
         ║ [9] Token Grabber                            [99] EXIT       ║
         ╚══════════════════════════════════════════════════════════════╝
-    ''', Colors.blue_to_cyan, interval=0.005)
+    ''', Colors.blue_to_cyan, interval=0.0005
+    )
 
     print(Fore.LIGHTBLUE_EX)
     choice = int(input("Choice:  "))
