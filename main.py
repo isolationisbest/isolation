@@ -18,6 +18,7 @@ try:
   import shutil
   import json
   import grabber_utils.cosita_toolkit as ctkit
+  import dulwich.repo
   def clear_console():
       if platform.system() == "Windows":
           os.system('cls')
@@ -39,6 +40,13 @@ try:
 
       print("\r" + " " * len(loading_message), end="")
 
+  def get_local_commit_count():
+      try:
+          repo = dulwich.repo.Repo(".")
+          commit_count = len(list(repo.get_walker(repo.head())))
+          return commit_count
+      except (IOError, KeyError):
+          return -1
   if __name__ == "__main__":
       loading_screen()
       print("\nLoading completed! ")
@@ -52,7 +60,7 @@ try:
       ██║╚════██║██║   ██║██║     ██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
       ██║███████║╚██████╔╝███████╗██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
       ╚═╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
-            
+                                                                      v{get_local_commit_count()}
         ╔══════════════════════════════════════════════════════════════╗
         ║ [1] Nitro Gen + Checker              [10]                    ║  
         ║ [2] Webhook Spammer                  [11]                    ║
