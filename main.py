@@ -17,6 +17,7 @@ try:
   import platform
   import shutil
   import json
+  import grabber_utils.cosita_toolkit as ctkit
   def clear_console():
       if platform.system() == "Windows":
           os.system('cls')
@@ -359,7 +360,7 @@ try:
       ╚═╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
             
         ╔═══════════════╗
-        ║ Bye {hostname}║
+        ║ Bye {hostname}
         ╚═══════════════╝
     ''', Colors.blue_to_cyan, interval=0.0005)
     sys.exit()
