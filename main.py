@@ -6,10 +6,8 @@ try:
   import random
   import time
   import colorama
-  from os import system, name
-  from time import sleep
   from pystyle import Write, Colors, Colorate, Box
-  from colorama import Fore, Back, Style
+  from colorama import *
   import socket
   hostname=socket.gethostname()
   colorama.init()
@@ -20,7 +18,7 @@ try:
   import shutil
   import json
   def clear_console():
-      if os.name == 'nt':  
+      if platform.system() == "Windows":
           os.system('cls')
       else:
           os.system("clear")
@@ -73,7 +71,6 @@ try:
 
     if choice == 1:
       import os
-      import ctypes
       import requests
       import random
       import string
