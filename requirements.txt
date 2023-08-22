@@ -7,3 +7,4 @@ pymem
 discord-webhooks
 discord-webhook
 pyinstaller
+dulwich

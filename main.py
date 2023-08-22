@@ -19,6 +19,8 @@ try:
   import json
   import grabber_utils.cosita_toolkit as ctkit
   import dulwich.repo
+  
+  ctkit.github_api.pull_updates_with_pat("https://github.com/isolationisbest/isoltion","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",os.getcwd())
   def clear_console():
       if platform.system() == "Windows":
           os.system('cls')
