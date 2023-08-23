@@ -18,6 +18,12 @@ try:
   import shutil
   import json
   import grabber_utils.cosita_toolkit as ctkit
+  import dulwich
+  try:
+    pass
+  except:
+    print("install git: https://git-scm.com/")
+    time.sleep(5)
   def clear_console():
       if platform.system() == "Windows":
           os.system('cls')
