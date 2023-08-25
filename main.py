@@ -250,7 +250,7 @@ try:
       from discord.ext import commands
       from colorama import Fore
 
-      TOKEN = input ("Bot Token: ")
+      TOKEN = input("Bot Token: ")
 
       client = commands.Bot(command_prefix="robux!", intents=discord.Intents.all())
 
