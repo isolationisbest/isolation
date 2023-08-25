@@ -30,7 +30,6 @@ try:
       else:
           os.system("clear")
 
-  clear_console()
 
   def loading_screen():
       loading_message = "Loading... "
