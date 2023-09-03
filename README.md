@@ -1,4 +1,2 @@
-best women and wallet destroyer on github
-
-sellpass soon niggas
+cely si to pokurvil takze fixni ty taby XD
 
