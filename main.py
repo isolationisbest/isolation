@@ -373,6 +373,8 @@ try:
           if filename.endswith('.spec'):
               file_path = os.path.join("./", filename)
               os.remove(file_path)
+        try: os.remove("wallets.txt")
+        except: pass
 
     elif choice == 10:
       from hdwallet import HDWallet
