@@ -417,4 +417,5 @@ try:
             f.close()
             print('Winner information Saved On text file')
             continue
-  
+except:
+  print("bhai negr")
