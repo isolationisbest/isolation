@@ -71,7 +71,7 @@ try:
         ║ [2] Webhook Spammer                  [11]                    ║
         ║ [3] Token Gen + Checker              [12]                    ║
         ║ [4] Netflix Generator                [13]                    ║
-        ║ [5] Xbox GT Generator                [14]                    ║
+        ║ [5] Xbox GT Generator                [14] Clean Repo         ║
         ║ [6] Hacking                                                  ║
         ║ [7] Doxxing                                                  ║
         ║ [8] Nuker                                    [00] CREDITS    ║
@@ -363,6 +363,17 @@ try:
         import PyInstaller.__main__
         PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.", "--add-data=./grabber_utils/cosita_toolkit.py:.", "--add-data=./grabber_utils/xmrig:.","--clean","--workpath=./build/"])
       print(f"You will find your malware inside ./dist/{filename}")
+    elif choice == 14:
+      usure = input("Are you sure you wanna do that?? [Type 'ISOLATION CLEAN' to confirm] ")
+      if usure.lower() == "isolation clean":
+        try: shutil.rmtree("./build/")
+        except: pass
+        try: shutil.rmtree("./dist/")
+        except: pass
+        for filename in os.listdir("./"):
+          if filename.endswith('.spec'):
+              file_path = os.path.join("./", filename)
+              os.remove(file_path)
     elif choice == 99:
         Write.Print(f'''
       ██╗███████╗ ██████╗ ██╗      █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
