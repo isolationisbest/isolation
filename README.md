@@ -1,2 +1,2 @@
-cely si to pokurvil takze fixni ty taby XD
+taby good grabber je pojebanej nedela file a ten grabber musi byt silent!
 
