@@ -26,6 +26,7 @@ try:
   except:
     print("install git: https://git-scm.com/")
     time.sleep(5)
+
   def clear_console():
       if platform.system() == "Windows":
           os.system('cls')
@@ -34,8 +35,8 @@ try:
 
 
   def loading_screen():
-      loading_message = "Loading... "
-      animation_chars = ["|", "/", "-", "\\"]
+      loading_message = "Loading "
+      animation_chars = [".", "..", "...", "....."]
       duration = 3
       start_time = time.time()
       
@@ -55,7 +56,7 @@ try:
           return -1
   if __name__ == "__main__":
       loading_screen()
-      print("\nLoading completed! ")
+      print("\nLoading Done! ")
   while True:
     clear_console()
 
@@ -67,17 +68,17 @@ try:
                             \__ \ | | | | |_ _| | (_| | | | | (_| |
                             |___/_| |_|_|\__(_)_|\__,_|_| |_|\__,_|
                                         
-                             bee je gay bez kokota certified by fbi
+                             certified skids
                                                                    
         ╔════════════════════════╦═════════════════════════════╦════════════════════════════╗ 
-        ║        Discord         ║         Token Manager       ║            Other           ║
+        ║        Discord         ║        Token Manager        ║            Extra           ║
         ╠	═══════════════════════╩═════════════════════════════╩════════════════════════════╣	
-        ║ [1] Nitro Gen          ║  Token Gen + Checker        ║  Wallet Cracker  
-        ║ [2] Token Gen          ║  Onliner                    ║                     
-        ║ [3] Token Grabber      ║  Joiner                     ║                   
-        ║ [4] Webhook Spammer    ║  Leaver                     ║ 
-        ║ [5] Account Nuker      ║  Spammer                    ║   [00] CREDITS    
-        ║ [9] Server Nuker       ║  Token Bruteforcing         ║   [99] EXIT       
+        ║ [1] Nitro Gen          ║  [10] Token Gen + Checker   ║  Wallet Cracker  
+        ║ [2] Token Gen          ║  [11] Onliner               ║                     
+        ║ [3] Token Grabber      ║  [12] Joiner                ║                   
+        ║ [4] Webhook Spammer    ║  [13] Leaver                ║ 
+        ║ [5] Account Nuker      ║  [14] Spammer               ║   [00] CREDITS    
+        ║ [9] Server Nuker       ║  [15] Token Bruteforcing    ║   [99] EXIT       
         ╚════════════════════════╩═════════════════════════════╩════════════════════════════╝
     ''', Colors.blue_to_cyan, interval=0.0005
     )
